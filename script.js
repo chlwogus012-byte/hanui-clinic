@@ -1,4 +1,6 @@
 document.addEventListener("DOMContentLoaded", function () {
+  initSite();
+
   var promoOverlay = document.getElementById("promoOverlay");
 
   if (promoOverlay) {
@@ -35,6 +37,87 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 });
+
+function setText(id, value) {
+  var el = document.getElementById(id);
+  if (el) el.textContent = value;
+}
+
+function initSite() {
+  fetch("data/site.json")
+    .then(function (res) { return res.json(); })
+    .then(function (site) {
+      setText("siteNameHeader", site.clinic.name);
+      setText("siteNameFooter", site.clinic.name);
+      setText("siteNamePromo", site.clinic.name);
+
+      setText("heroEyebrow", site.hero.eyebrow);
+      setText("heroTitle", site.hero.title);
+      setText("heroDesc", site.hero.description);
+      setText("heroSub", site.hero.sub);
+
+      setText("philosophyLine1", site.philosophy.titleLine1);
+      setText("philosophyHighlight", site.philosophy.titleHighlight);
+      setText("philosophyDesc", site.philosophy.description);
+
+      var valuesGrid = document.getElementById("valuesGrid");
+      if (valuesGrid) {
+        site.values.forEach(function (value) {
+          var card = document.createElement("div");
+          card.className = "value-card";
+          card.innerHTML =
+            '<div class="value-icon">' + escapeHtml(value.icon) + "</div>" +
+            "<h3>" + escapeHtml(value.title) + "</h3>" +
+            "<p>" + escapeHtml(value.description) + "</p>";
+          valuesGrid.appendChild(card);
+        });
+      }
+
+      var programsGrid = document.getElementById("programsGrid");
+      if (programsGrid) {
+        site.programs.forEach(function (program, index) {
+          var card = document.createElement("div");
+          card.className = "program-card";
+          var num = String(index + 1).padStart(2, "0");
+          card.innerHTML =
+            '<div class="program-num">' + num + "</div>" +
+            "<h3>" + escapeHtml(program.title) + "</h3>" +
+            "<p>" + escapeHtml(program.description) + "</p>";
+          programsGrid.appendChild(card);
+        });
+      }
+
+      var doctorsGrid = document.getElementById("doctorsGrid");
+      if (doctorsGrid) {
+        site.doctors.forEach(function (doctor) {
+          var card = document.createElement("div");
+          card.className = "doctor-card";
+          var photoStyle = doctor.photo
+            ? ' style="background-image:url(\'' + doctor.photo + '\');background-size:cover;background-position:center;color:transparent;"'
+            : "";
+          card.innerHTML =
+            '<div class="doctor-photo"' + photoStyle + ">" + (doctor.photo ? "" : escapeHtml(doctor.name.charAt(0))) + "</div>" +
+            "<h3>" + escapeHtml(doctor.name) + "</h3>" +
+            "<p>" + escapeHtml(doctor.title) + "</p>";
+          doctorsGrid.appendChild(card);
+        });
+      }
+
+      setText("hoursWeekday", site.hours.weekday);
+      setText("hoursSaturday", site.hours.saturday);
+      setText("hoursSundayHoliday", site.hours.sundayHoliday);
+      setText("hoursLunch", site.hours.lunch);
+      setText("systemNote", site.hours.note);
+
+      var telLink = document.getElementById("telLink");
+      if (telLink) telLink.href = "tel:" + site.clinic.phoneLink;
+
+      setText("footerAddress", site.clinic.address);
+      setText("footerContact", "대표전화 " + site.clinic.phone + "  |  사업자등록번호 " + site.clinic.businessRegNumber);
+      setText("footerDirector", "대표원장 " + site.clinic.directorName);
+    })
+    .catch(function () {});
+}
 
 function initPromo(promoOverlay) {
   var promoClose = document.getElementById("promoClose");

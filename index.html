@@ -37,7 +37,7 @@
     <div class="promo-footer">
       <div class="promo-brand">
         <span class="logo-mark">溫</span>
-        <span>온담한의원</span>
+        <span id="siteNamePromo"></span>
       </div>
       <label class="promo-hide-today">
         <input type="checkbox" id="promoHideToday">
@@ -52,7 +52,7 @@
   <div class="header-inner">
     <a href="#" class="logo">
       <span class="logo-mark">溫</span>
-      <span class="logo-text">온담한의원</span>
+      <span class="logo-text" id="siteNameHeader"></span>
     </a>
 
     <nav class="gnb" id="gnb">
@@ -113,12 +113,10 @@
     <span class="blob blob-3"></span>
   </div>
   <div class="hero-inner">
-    <p class="hero-eyebrow">체질의 차이를 먼저 생각합니다</p>
-    <h1 class="hero-title">
-      온담한의원
-    </h1>
-    <p class="hero-desc">체질감별 · 만성통증 · 한방다이어트 · 맞춤보약·공진단</p>
-    <p class="hero-sub">한의학박사, 한방전문의 등 남녀 한의사 4인 예약제 진료</p>
+    <p class="hero-eyebrow" id="heroEyebrow"></p>
+    <h1 class="hero-title" id="heroTitle"></h1>
+    <p class="hero-desc" id="heroDesc"></p>
+    <p class="hero-sub" id="heroSub"></p>
     <div class="hero-actions">
       <a href="#system" class="btn btn-primary btn-lg">진료상담예약</a>
       <a href="#about" class="btn btn-outline btn-lg">병원소개 보기</a>
@@ -132,13 +130,10 @@
   <div class="container">
     <p class="section-eyebrow">PHILOSOPHY</p>
     <h2 class="philosophy-title">
-      같은 병이라도, 같은 사람은 없습니다.<br>
-      <strong>체질의 차이를 먼저 생각합니다.</strong>
+      <span id="philosophyLine1"></span><br>
+      <strong id="philosophyHighlight"></strong>
     </h2>
-    <p class="philosophy-desc">
-      온담한의원은 획일화된 처방이 아닌, 한 사람 한 사람의 체질과 생활 습관을 살펴<br class="pc-only">
-      가장 근본적인 원인을 찾는 것을 진료의 출발점으로 삼습니다.
-    </p>
+    <p class="philosophy-desc" id="philosophyDesc"></p>
   </div>
 </section>
 
@@ -148,33 +143,7 @@
     <p class="section-eyebrow">WHY ONDAM</p>
     <h2 class="section-title">온담이 중요하게 생각하는 것</h2>
 
-    <div class="value-grid">
-      <div class="value-card">
-        <div class="value-icon">溫</div>
-        <h3>온고지신</h3>
-        <p>수천 년 축적된 한의학의 지혜를 현대적으로 재해석합니다.</p>
-      </div>
-      <div class="value-card">
-        <div class="value-icon">科</div>
-        <h3>과학적 근거</h3>
-        <p>임상 데이터와 근거 중심의 진단으로 신뢰할 수 있는 진료를 제공합니다.</p>
-      </div>
-      <div class="value-card">
-        <div class="value-icon">機</div>
-        <h3>현대 의료기기</h3>
-        <p>정밀한 체질·통증 검사 장비로 객관적인 진단을 돕습니다.</p>
-      </div>
-      <div class="value-card">
-        <div class="value-icon">心</div>
-        <h3>맞춤 상담</h3>
-        <p>충분한 상담 시간을 통해 개인별 맞춤 치료 계획을 세웁니다.</p>
-      </div>
-      <div class="value-card">
-        <div class="value-icon">續</div>
-        <h3>꾸준한 관리</h3>
-        <p>치료 이후에도 이어지는 체계적인 사후 관리 시스템을 갖췄습니다.</p>
-      </div>
-    </div>
+    <div class="value-grid" id="valuesGrid"></div>
   </div>
 </section>
 
@@ -184,38 +153,7 @@
     <p class="section-eyebrow">PROGRAMS</p>
     <h2 class="section-title">주요 진료 과목</h2>
 
-    <div class="program-grid">
-      <div class="program-card">
-        <div class="program-num">01</div>
-        <h3>체질감별</h3>
-        <p>정밀 진단을 통해 개인의 체질을 파악하고 맞춤 치료 방향을 제시합니다.</p>
-      </div>
-      <div class="program-card">
-        <div class="program-num">02</div>
-        <h3>만성통증</h3>
-        <p>목·어깨·허리 등 오래된 통증의 근본 원인을 찾아 치료합니다.</p>
-      </div>
-      <div class="program-card">
-        <div class="program-num">03</div>
-        <h3>한방다이어트</h3>
-        <p>체질에 맞는 한방 처방으로 건강하고 지속 가능한 체중 관리를 돕습니다.</p>
-      </div>
-      <div class="program-card">
-        <div class="program-num">04</div>
-        <h3>맞춤보약·공진단</h3>
-        <p>개인별 체질과 컨디션에 맞춘 보약과 공진단을 처방합니다.</p>
-      </div>
-      <div class="program-card">
-        <div class="program-num">05</div>
-        <h3>교통사고후유증</h3>
-        <p>사고 이후 남은 통증과 후유증을 체계적으로 치료 관리합니다.</p>
-      </div>
-      <div class="program-card">
-        <div class="program-num">06</div>
-        <h3>여성·소아 한방</h3>
-        <p>여성 질환과 소아 성장·면역을 위한 전문 한방 진료를 제공합니다.</p>
-      </div>
-    </div>
+    <div class="program-grid" id="programsGrid"></div>
   </div>
 </section>
 
@@ -225,28 +163,7 @@
     <p class="section-eyebrow">DOCTORS</p>
     <h2 class="section-title">의료진 소개</h2>
 
-    <div class="doctor-grid">
-      <div class="doctor-card">
-        <div class="doctor-photo">1</div>
-        <h3>김온담 원장</h3>
-        <p>한의학박사 · 한방내과 전문의</p>
-      </div>
-      <div class="doctor-card">
-        <div class="doctor-photo">2</div>
-        <h3>이수현 원장</h3>
-        <p>한방재활의학과 전문의</p>
-      </div>
-      <div class="doctor-card">
-        <div class="doctor-photo">3</div>
-        <h3>박지훈 원장</h3>
-        <p>사상체질과 전문의</p>
-      </div>
-      <div class="doctor-card">
-        <div class="doctor-photo">4</div>
-        <h3>정하은 원장</h3>
-        <p>한방부인과 전문의</p>
-      </div>
-    </div>
+    <div class="doctor-grid" id="doctorsGrid"></div>
   </div>
 </section>
 
@@ -267,13 +184,13 @@
       <p class="section-eyebrow">RESERVATION</p>
       <h2 class="section-title">진료시간 &amp; 예약안내</h2>
       <table class="time-table">
-        <tr><th>평일</th><td>09:30 – 19:00</td></tr>
-        <tr><th>토요일</th><td>09:30 – 14:00</td></tr>
-        <tr><th>일요일 · 공휴일</th><td>휴진</td></tr>
-        <tr><th>점심시간</th><td>13:00 – 14:00</td></tr>
+        <tr><th>평일</th><td id="hoursWeekday"></td></tr>
+        <tr><th>토요일</th><td id="hoursSaturday"></td></tr>
+        <tr><th>일요일 · 공휴일</th><td id="hoursSundayHoliday"></td></tr>
+        <tr><th>점심시간</th><td id="hoursLunch"></td></tr>
       </table>
-      <p class="system-note">모든 진료는 예약제로 운영되며, 전화 또는 온라인으로 예약하실 수 있습니다.</p>
-      <a href="tel:031-8027-8275" class="btn btn-primary btn-lg">전화로 예약하기</a>
+      <p class="system-note" id="systemNote"></p>
+      <a href="#" class="btn btn-primary btn-lg" id="telLink">전화로 예약하기</a>
     </div>
     <div class="system-map" id="location">
       <div class="map-placeholder">지도 영역</div>
@@ -287,11 +204,11 @@
     <div class="footer-col">
       <div class="footer-logo">
         <span class="logo-mark">溫</span>
-        <span class="logo-text">온담한의원</span>
+        <span class="logo-text" id="siteNameFooter"></span>
       </div>
-      <p>서울특별시 강동구 미사강변대로 123 온담빌딩 3층</p>
-      <p>대표전화 031-8027-8275 &nbsp;|&nbsp; 사업자등록번호 123-45-67890</p>
-      <p>대표원장 김온담</p>
+      <p id="footerAddress"></p>
+      <p id="footerContact"></p>
+      <p id="footerDirector"></p>
     </div>
     <div class="footer-col footer-links">
       <h4>바로가기</h4>

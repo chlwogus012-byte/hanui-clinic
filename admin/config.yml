@@ -9,6 +9,77 @@ media_folder: "images/uploads"
 public_folder: "/images/uploads"
 
 collections:
+  - name: "site"
+    label: "홈페이지 내용"
+    files:
+      - name: "site"
+        label: "전체 내용 편집"
+        file: "data/site.json"
+        fields:
+          - label: "병원 기본 정보"
+            name: "clinic"
+            widget: "object"
+            fields:
+              - { label: "병원 이름", name: "name", widget: "string" }
+              - { label: "전화번호 (화면 표시용, 예: 031-8027-8275)", name: "phone", widget: "string" }
+              - { label: "전화번호 (통화 연결용, 하이픈 포함)", name: "phoneLink", widget: "string" }
+              - { label: "주소", name: "address", widget: "string" }
+              - { label: "사업자등록번호", name: "businessRegNumber", widget: "string" }
+              - { label: "대표원장 이름", name: "directorName", widget: "string" }
+
+          - label: "메인 화면 (첫 화면)"
+            name: "hero"
+            widget: "object"
+            fields:
+              - { label: "작은 소개 문구", name: "eyebrow", widget: "string" }
+              - { label: "큰 제목 (보통 병원 이름)", name: "title", widget: "string" }
+              - { label: "진료 항목 소개 문구", name: "description", widget: "string" }
+              - { label: "의료진 소개 문구", name: "sub", widget: "string" }
+
+          - label: "진료 철학 섹션"
+            name: "philosophy"
+            widget: "object"
+            fields:
+              - { label: "첫째 줄", name: "titleLine1", widget: "string" }
+              - { label: "강조 문구 (파란색으로 표시)", name: "titleHighlight", widget: "string" }
+              - { label: "설명 문구", name: "description", widget: "text" }
+
+          - label: "온담이 중요하게 생각하는 것 (5가지 핵심가치)"
+            name: "values"
+            widget: "list"
+            summary: "{{title}}"
+            fields:
+              - { label: "아이콘 한자 1글자", name: "icon", widget: "string" }
+              - { label: "제목", name: "title", widget: "string" }
+              - { label: "설명", name: "description", widget: "text" }
+
+          - label: "주요 진료 과목 목록"
+            name: "programs"
+            widget: "list"
+            summary: "{{title}}"
+            fields:
+              - { label: "진료과목 이름", name: "title", widget: "string" }
+              - { label: "설명", name: "description", widget: "text" }
+
+          - label: "의료진 소개 목록"
+            name: "doctors"
+            widget: "list"
+            summary: "{{name}}"
+            fields:
+              - { label: "이름 (예: 김온담 원장)", name: "name", widget: "string" }
+              - { label: "자격/전문분야", name: "title", widget: "string" }
+              - { label: "사진 (비워두면 이름 첫 글자로 표시)", name: "photo", widget: "image", required: false }
+
+          - label: "진료시간 및 예약 안내"
+            name: "hours"
+            widget: "object"
+            fields:
+              - { label: "평일", name: "weekday", widget: "string" }
+              - { label: "토요일", name: "saturday", widget: "string" }
+              - { label: "일요일 · 공휴일", name: "sundayHoliday", widget: "string" }
+              - { label: "점심시간", name: "lunch", widget: "string" }
+              - { label: "예약 안내 문구", name: "note", widget: "text" }
+
   - name: "columns"
     label: "건강칼럼"
     files:
