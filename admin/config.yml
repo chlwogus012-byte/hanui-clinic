@@ -1,0 +1,57 @@
+backend:
+  name: github
+  repo: chlwogus012-byte/hanui-clinic
+  branch: main
+  base_url: https://hanui-clinic.vercel.app
+  auth_endpoint: api/auth
+
+media_folder: "images/uploads"
+public_folder: "/images/uploads"
+
+collections:
+  - name: "columns"
+    label: "건강칼럼"
+    files:
+      - name: "posts"
+        label: "건강칼럼 목록"
+        file: "data/columns.json"
+        fields:
+          - label: "글 목록"
+            name: "posts"
+            widget: "list"
+            summary: "{{title}}"
+            fields:
+              - { label: "제목", name: "title", widget: "string" }
+              - { label: "분류 태그 (예: 체질, 통증, 다이어트)", name: "tag", widget: "string" }
+              - { label: "날짜", name: "date", widget: "date", format: "YYYY-MM-DD" }
+              - { label: "대표 이미지", name: "image", widget: "image", required: false }
+              - { label: "고유 ID (영문 소문자, 공백 없이, 예: new-post-1)", name: "id", widget: "string" }
+              - { label: "본문 (문단 사이는 줄을 두 번 띄우기)", name: "body", widget: "text" }
+
+  - name: "promo"
+    label: "이벤트 팝업"
+    files:
+      - name: "promo"
+        label: "팝업 설정"
+        file: "data/promo.json"
+        fields:
+          - { label: "팝업 표시 여부", name: "enabled", widget: "boolean", default: true }
+          - { label: "상단 안내문 (줄바꿈은 Enter)", name: "heading", widget: "text" }
+          - { label: "할인 배지 문구 (줄바꿈은 Enter)", name: "badgeText", widget: "text" }
+          - { label: "메인 타이틀", name: "title", widget: "string" }
+          - { label: "서브 타이틀", name: "subtitle", widget: "string" }
+          - label: "상품 그룹 (한 줄에 보여줄 묶음)"
+            name: "rows"
+            widget: "list"
+            summary: "{{fields.items}} 개 상품"
+            fields:
+              - label: "상품"
+                name: "items"
+                widget: "list"
+                summary: "{{name}}"
+                fields:
+                  - { label: "상품명", name: "name", widget: "string" }
+                  - { label: "단위/수량 표시", name: "qty", widget: "string" }
+                  - { label: "한정수량 강조(빨간색)", name: "limited", widget: "boolean", default: false }
+                  - { label: "정가", name: "original", widget: "string" }
+                  - { label: "할인가", name: "sale", widget: "string" }

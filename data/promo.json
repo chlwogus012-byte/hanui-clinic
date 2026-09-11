@@ -1,0 +1,32 @@
+{
+  "enabled": true,
+  "heading": "온담한의원 추석 이벤트,\n보름달처럼 가득 찬 마음을 전하세요",
+  "badgeText": "최대\n20%",
+  "title": "한가위",
+  "subtitle": "마음을 담은 건강선물",
+  "rows": [
+    {
+      "items": [
+        { "name": "프리미엄 공진단", "qty": "10환", "limited": false, "original": "90만원", "sale": "72만원" },
+        { "name": "황제 공진단", "qty": "10환", "limited": false, "original": "60만원", "sale": "48만원" },
+        { "name": "온담 공진단", "qty": "10환", "limited": false, "original": "39만원", "sale": "31만2천원" }
+      ]
+    },
+    {
+      "items": [
+        { "name": "경옥고 스틱", "qty": "30포", "limited": false, "original": "18만원", "sale": "14만4천원" },
+        { "name": "경옥고 단지", "qty": "1.2kg", "limited": false, "original": "30만원", "sale": "24만원" },
+        { "name": "경옥고 환", "qty": "60환", "limited": false, "original": "24만원", "sale": "19만2천원" },
+        { "name": "녹용 경옥고", "qty": "한정수량", "limited": true, "original": "40만원", "sale": "36만원" }
+      ]
+    },
+    {
+      "items": [
+        { "name": "어린이 홍삼", "qty": "30팩", "limited": false, "original": "10만원", "sale": "8만원" },
+        { "name": "온담 홍삼", "qty": "30팩", "limited": false, "original": "12만원", "sale": "9만6천원" },
+        { "name": "녹용 홍삼", "qty": "30팩", "limited": false, "original": "22만원", "sale": "17만6천원" },
+        { "name": "우황청심원", "qty": "10환", "limited": false, "original": "45만원", "sale": "36만원" }
+      ]
+    }
+  ]
+}
