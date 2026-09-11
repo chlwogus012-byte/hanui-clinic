@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>온담한의원 | 체질을 먼저 생각하는 한의원</title>
+
+<!-- Pretendard : Google Fonts에는 등록되어 있지 않아 공식 CDN(jsDelivr)으로 로드합니다 -->
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css">
+
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ===== Promo Popup ===== -->
+<div class="promo-overlay" id="promoOverlay">
+  <div class="promo-modal">
+    <button class="promo-close" id="promoClose" aria-label="팝업 닫기">&times;</button>
+
+    <div class="promo-visual">
+      <div class="promo-moon"></div>
+      <svg class="promo-mountains" viewBox="0 0 520 160" preserveAspectRatio="none" aria-hidden="true">
+        <path d="M0,160 L0,95 L60,55 L120,90 L180,40 L260,100 L320,60 L400,105 L460,70 L520,100 L520,160 Z" fill="rgba(255,255,255,0.06)"/>
+        <path d="M0,160 L0,120 L80,80 L150,115 L230,75 L300,120 L380,85 L460,125 L520,110 L520,160 Z" fill="rgba(255,255,255,0.1)"/>
+      </svg>
+      <div class="promo-header">
+        <p class="promo-heading">온담한의원 추석 이벤트,<br>보름달처럼 가득 찬 마음을 전하세요</p>
+        <div class="promo-badge">최대<br>20%</div>
+        <h2 class="promo-title">한가위</h2>
+        <p class="promo-sub">마음을 담은 건강선물</p>
+      </div>
+    </div>
+
+    <div class="promo-products">
+      <div class="promo-row promo-row-3">
+        <div class="promo-item">
+          <h4>프리미엄 공진단</h4>
+          <span class="promo-qty">10환</span>
+          <p><del>90만원</del> <strong>72만원</strong></p>
+        </div>
+        <div class="promo-item">
+          <h4>황제 공진단</h4>
+          <span class="promo-qty">10환</span>
+          <p><del>60만원</del> <strong>48만원</strong></p>
+        </div>
+        <div class="promo-item">
+          <h4>온담 공진단</h4>
+          <span class="promo-qty">10환</span>
+          <p><del>39만원</del> <strong>31만2천원</strong></p>
+        </div>
+      </div>
+
+      <div class="promo-row promo-row-4">
+        <div class="promo-item">
+          <h4>경옥고 스틱</h4>
+          <span class="promo-qty">30포</span>
+          <p><del>18만원</del> <strong>14만4천원</strong></p>
+        </div>
+        <div class="promo-item">
+          <h4>경옥고 단지</h4>
+          <span class="promo-qty">1.2kg</span>
+          <p><del>30만원</del> <strong>24만원</strong></p>
+        </div>
+        <div class="promo-item">
+          <h4>경옥고 환</h4>
+          <span class="promo-qty">60환</span>
+          <p><del>24만원</del> <strong>19만2천원</strong></p>
+        </div>
+        <div class="promo-item">
+          <h4>녹용 경옥고</h4>
+          <span class="promo-qty promo-qty-limited">한정수량</span>
+          <p><del>40만원</del> <strong>36만원</strong></p>
+        </div>
+      </div>
+
+      <div class="promo-row promo-row-4">
+        <div class="promo-item">
+          <h4>어린이 홍삼</h4>
+          <span class="promo-qty">30팩</span>
+          <p><del>10만원</del> <strong>8만원</strong></p>
+        </div>
+        <div class="promo-item">
+          <h4>온담 홍삼</h4>
+          <span class="promo-qty">30팩</span>
+          <p><del>12만원</del> <strong>9만6천원</strong></p>
+        </div>
+        <div class="promo-item">
+          <h4>녹용 홍삼</h4>
+          <span class="promo-qty">30팩</span>
+          <p><del>22만원</del> <strong>17만6천원</strong></p>
+        </div>
+        <div class="promo-item">
+          <h4>우황청심원</h4>
+          <span class="promo-qty">10환</span>
+          <p><del>45만원</del> <strong>36만원</strong></p>
+        </div>
+      </div>
+    </div>
+
+    <div class="promo-footer">
+      <div class="promo-brand">
+        <span class="logo-mark">溫</span>
+        <span>온담한의원</span>
+      </div>
+      <label class="promo-hide-today">
+        <input type="checkbox" id="promoHideToday">
+        오늘 하루 보지 않기
+      </label>
+    </div>
+  </div>
+</div>
+
+<!-- ===== Header ===== -->
+<header class="header" id="header">
+  <div class="header-inner">
+    <a href="#" class="logo">
+      <span class="logo-mark">溫</span>
+      <span class="logo-text">온담한의원</span>
+    </a>
+
+    <nav class="gnb" id="gnb">
+      <ul class="gnb-list">
+        <li class="gnb-item">
+          <a href="#about">병원소개</a>
+          <ul class="sub-menu">
+            <li><a href="#about">인사말</a></li>
+            <li><a href="#about">진료철학</a></li>
+            <li><a href="#doctors">의료진 소개</a></li>
+            <li><a href="#location">오시는 길</a></li>
+          </ul>
+        </li>
+        <li class="gnb-item">
+          <a href="#programs">진료과목</a>
+          <ul class="sub-menu">
+            <li><a href="#programs">체질감별</a></li>
+            <li><a href="#programs">만성통증</a></li>
+            <li><a href="#programs">한방다이어트</a></li>
+            <li><a href="#programs">맞춤보약·공진단</a></li>
+            <li><a href="#programs">교통사고후유증</a></li>
+            <li><a href="#programs">여성·소아 한방</a></li>
+          </ul>
+        </li>
+        <li class="gnb-item">
+          <a href="#system">진료시스템</a>
+          <ul class="sub-menu">
+            <li><a href="#system">예약안내</a></li>
+            <li><a href="#system">진료시간</a></li>
+            <li><a href="#system">첫 방문 안내</a></li>
+          </ul>
+        </li>
+        <li class="gnb-item">
+          <a href="#column">커뮤니티</a>
+          <ul class="sub-menu">
+            <li><a href="#column">건강칼럼</a></li>
+            <li><a href="#column">공지사항</a></li>
+            <li><a href="#column">자주 묻는 질문</a></li>
+          </ul>
+        </li>
+      </ul>
+      <a href="#system" class="btn btn-primary gnb-mobile-cta">진료상담예약</a>
+    </nav>
+
+    <a href="#system" class="btn btn-primary header-cta">진료상담예약</a>
+
+    <button class="menu-toggle" id="menuToggle" aria-label="메뉴 열기">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<!-- ===== Hero ===== -->
+<section class="hero">
+  <div class="hero-bg">
+    <span class="blob blob-1"></span>
+    <span class="blob blob-2"></span>
+    <span class="blob blob-3"></span>
+  </div>
+  <div class="hero-inner">
+    <p class="hero-eyebrow">체질의 차이를 먼저 생각합니다</p>
+    <h1 class="hero-title">
+      온담한의원
+    </h1>
+    <p class="hero-desc">체질감별 · 만성통증 · 한방다이어트 · 맞춤보약·공진단</p>
+    <p class="hero-sub">한의학박사, 한방전문의 등 남녀 한의사 4인 예약제 진료</p>
+    <div class="hero-actions">
+      <a href="#system" class="btn btn-primary btn-lg">진료상담예약</a>
+      <a href="#about" class="btn btn-outline btn-lg">병원소개 보기</a>
+    </div>
+  </div>
+  <div class="scroll-indicator"><span></span></div>
+</section>
+
+<!-- ===== Philosophy ===== -->
+<section class="philosophy" id="about">
+  <div class="container">
+    <p class="section-eyebrow">PHILOSOPHY</p>
+    <h2 class="philosophy-title">
+      같은 병이라도, 같은 사람은 없습니다.<br>
+      <strong>체질의 차이를 먼저 생각합니다.</strong>
+    </h2>
+    <p class="philosophy-desc">
+      온담한의원은 획일화된 처방이 아닌, 한 사람 한 사람의 체질과 생활 습관을 살펴<br class="pc-only">
+      가장 근본적인 원인을 찾는 것을 진료의 출발점으로 삼습니다.
+    </p>
+  </div>
+</section>
+
+<!-- ===== Core Values ===== -->
+<section class="values">
+  <div class="container">
+    <p class="section-eyebrow">WHY ONDAM</p>
+    <h2 class="section-title">온담이 중요하게 생각하는 것</h2>
+
+    <div class="value-grid">
+      <div class="value-card">
+        <div class="value-icon">溫</div>
+        <h3>온고지신</h3>
+        <p>수천 년 축적된 한의학의 지혜를 현대적으로 재해석합니다.</p>
+      </div>
+      <div class="value-card">
+        <div class="value-icon">科</div>
+        <h3>과학적 근거</h3>
+        <p>임상 데이터와 근거 중심의 진단으로 신뢰할 수 있는 진료를 제공합니다.</p>
+      </div>
+      <div class="value-card">
+        <div class="value-icon">機</div>
+        <h3>현대 의료기기</h3>
+        <p>정밀한 체질·통증 검사 장비로 객관적인 진단을 돕습니다.</p>
+      </div>
+      <div class="value-card">
+        <div class="value-icon">心</div>
+        <h3>맞춤 상담</h3>
+        <p>충분한 상담 시간을 통해 개인별 맞춤 치료 계획을 세웁니다.</p>
+      </div>
+      <div class="value-card">
+        <div class="value-icon">續</div>
+        <h3>꾸준한 관리</h3>
+        <p>치료 이후에도 이어지는 체계적인 사후 관리 시스템을 갖췄습니다.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Programs ===== -->
+<section class="programs" id="programs">
+  <div class="container">
+    <p class="section-eyebrow">PROGRAMS</p>
+    <h2 class="section-title">주요 진료 과목</h2>
+
+    <div class="program-grid">
+      <div class="program-card">
+        <div class="program-num">01</div>
+        <h3>체질감별</h3>
+        <p>정밀 진단을 통해 개인의 체질을 파악하고 맞춤 치료 방향을 제시합니다.</p>
+      </div>
+      <div class="program-card">
+        <div class="program-num">02</div>
+        <h3>만성통증</h3>
+        <p>목·어깨·허리 등 오래된 통증의 근본 원인을 찾아 치료합니다.</p>
+      </div>
+      <div class="program-card">
+        <div class="program-num">03</div>
+        <h3>한방다이어트</h3>
+        <p>체질에 맞는 한방 처방으로 건강하고 지속 가능한 체중 관리를 돕습니다.</p>
+      </div>
+      <div class="program-card">
+        <div class="program-num">04</div>
+        <h3>맞춤보약·공진단</h3>
+        <p>개인별 체질과 컨디션에 맞춘 보약과 공진단을 처방합니다.</p>
+      </div>
+      <div class="program-card">
+        <div class="program-num">05</div>
+        <h3>교통사고후유증</h3>
+        <p>사고 이후 남은 통증과 후유증을 체계적으로 치료 관리합니다.</p>
+      </div>
+      <div class="program-card">
+        <div class="program-num">06</div>
+        <h3>여성·소아 한방</h3>
+        <p>여성 질환과 소아 성장·면역을 위한 전문 한방 진료를 제공합니다.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Doctors ===== -->
+<section class="doctors" id="doctors">
+  <div class="container">
+    <p class="section-eyebrow">DOCTORS</p>
+    <h2 class="section-title">의료진 소개</h2>
+
+    <div class="doctor-grid">
+      <div class="doctor-card">
+        <div class="doctor-photo">1</div>
+        <h3>김온담 원장</h3>
+        <p>한의학박사 · 한방내과 전문의</p>
+      </div>
+      <div class="doctor-card">
+        <div class="doctor-photo">2</div>
+        <h3>이수현 원장</h3>
+        <p>한방재활의학과 전문의</p>
+      </div>
+      <div class="doctor-card">
+        <div class="doctor-photo">3</div>
+        <h3>박지훈 원장</h3>
+        <p>사상체질과 전문의</p>
+      </div>
+      <div class="doctor-card">
+        <div class="doctor-photo">4</div>
+        <h3>정하은 원장</h3>
+        <p>한방부인과 전문의</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Health Column ===== -->
+<section class="column" id="column">
+  <div class="container">
+    <p class="section-eyebrow">HEALTH COLUMN</p>
+    <h2 class="section-title">건강칼럼</h2>
+
+    <div class="column-grid">
+      <a href="#" class="column-card">
+        <div class="column-thumb">건강 정보 01</div>
+        <div class="column-body">
+          <span class="column-tag">체질</span>
+          <h3>나에게 맞는 체질, 어떻게 알 수 있을까요?</h3>
+        </div>
+      </a>
+      <a href="#" class="column-card">
+        <div class="column-thumb">건강 정보 02</div>
+        <div class="column-body">
+          <span class="column-tag">통증</span>
+          <h3>만성 어깨 통증, 방치하면 안 되는 이유</h3>
+        </div>
+      </a>
+      <a href="#" class="column-card">
+        <div class="column-thumb">건강 정보 03</div>
+        <div class="column-body">
+          <span class="column-tag">다이어트</span>
+          <h3>요요 없는 한방다이어트, 원리부터 이해하기</h3>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== System / Location ===== -->
+<section class="system" id="system">
+  <div class="container system-inner">
+    <div class="system-info">
+      <p class="section-eyebrow">RESERVATION</p>
+      <h2 class="section-title">진료시간 &amp; 예약안내</h2>
+      <table class="time-table">
+        <tr><th>평일</th><td>09:30 – 19:00</td></tr>
+        <tr><th>토요일</th><td>09:30 – 14:00</td></tr>
+        <tr><th>일요일 · 공휴일</th><td>휴진</td></tr>
+        <tr><th>점심시간</th><td>13:00 – 14:00</td></tr>
+      </table>
+      <p class="system-note">모든 진료는 예약제로 운영되며, 전화 또는 온라인으로 예약하실 수 있습니다.</p>
+      <a href="tel:031-8027-8275" class="btn btn-primary btn-lg">전화로 예약하기</a>
+    </div>
+    <div class="system-map" id="location">
+      <div class="map-placeholder">지도 영역</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Footer ===== -->
+<footer class="footer">
+  <div class="container footer-inner">
+    <div class="footer-col">
+      <div class="footer-logo">
+        <span class="logo-mark">溫</span>
+        <span class="logo-text">온담한의원</span>
+      </div>
+      <p>서울특별시 강동구 미사강변대로 123 온담빌딩 3층</p>
+      <p>대표전화 031-8027-8275 &nbsp;|&nbsp; 사업자등록번호 123-45-67890</p>
+      <p>대표원장 김온담</p>
+    </div>
+    <div class="footer-col footer-links">
+      <h4>바로가기</h4>
+      <ul>
+        <li><a href="#about">병원소개</a></li>
+        <li><a href="#programs">진료과목</a></li>
+        <li><a href="#system">진료시스템</a></li>
+        <li><a href="#column">커뮤니티</a></li>
+      </ul>
+    </div>
+    <div class="footer-col footer-links">
+      <h4>안내</h4>
+      <ul>
+        <li><a href="#">이용약관</a></li>
+        <li><a href="#">개인정보처리방침</a></li>
+      </ul>
+    </div>
+  </div>
+  <p class="footer-copy">&copy; 2026 Ondam Korean Medicine Clinic. All rights reserved.</p>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>온담한의원</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700;800&family=Noto+Serif+KR:wght@600;700&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --bg: #ffffff;
+  --bg-alt: #f5f8fd;
+  --surface: #ffffff;
+  --text: #171b26;
+  --text-light: #6a7284;
+  --border: #e5e9f2;
+  --primary: #0F3D99;
+  --primary-dark: #0a2c70;
+  --primary-light: #e9eff9;
+  --footer-bg: #081226;
+  --footer-text: rgba(255, 255, 255, 0.72);
+  --footer-border: rgba(255, 255, 255, 0.12);
+  --radius: 14px;
+  --header-h: 84px;
+  --transition: 0.25s ease;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0a0e1a;
+    --bg-alt: #0f1526;
+    --surface: #121a2e;
+    --text: #eef1f8;
+    --text-light: #98a1b8;
+    --border: #232c46;
+    --primary: #6f97e8;
+    --primary-dark: #4c72c9;
+    --primary-light: #182240;
+  }
+}
+
+:root[data-theme="dark"] {
+  --bg: #0a0e1a;
+  --bg-alt: #0f1526;
+  --surface: #121a2e;
+  --text: #eef1f8;
+  --text-light: #98a1b8;
+  --border: #232c46;
+  --primary: #6f97e8;
+  --primary-dark: #4c72c9;
+  --primary-light: #182240;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: "Noto Sans KR", "Apple SD Gothic Neo", "Malgun Gothic", -apple-system, BlinkMacSystemFont, sans-serif;
+  color: var(--text);
+  background: var(--bg);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+a { color: inherit; text-decoration: none; }
+ul { list-style: none; }
+img { max-width: 100%; display: block; }
+
+.container { max-width: 1160px; margin: 0 auto; padding: 0 24px; }
+.pc-only { display: inline; }
+
+:focus-visible { outline: 2px solid var(--primary); outline-offset: 3px; }
+
+@media (prefers-reduced-motion: reduce) {
+  * { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; }
+  html { scroll-behavior: auto; }
+}
+
+/* ---------- Buttons ---------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 26px;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  transition: background var(--transition), color var(--transition), border-color var(--transition), transform var(--transition);
+  white-space: nowrap;
+}
+.btn-primary { background: var(--primary); color: #fff; border: 1px solid var(--primary); }
+.btn-primary:hover { background: var(--primary-dark); border-color: var(--primary-dark); transform: translateY(-2px); }
+.btn-outline { background: transparent; color: var(--primary); border: 1px solid var(--primary); }
+.btn-outline:hover { background: var(--primary); color: #fff; transform: translateY(-2px); }
+.btn-lg { padding: 15px 34px; font-size: 1rem; }
+
+/* ---------- Section common ---------- */
+section { padding: 100px 0; }
+.section-eyebrow { color: var(--primary); font-weight: 700; letter-spacing: 0.14em; font-size: 0.8rem; margin-bottom: 14px; }
+.section-title { font-family: "Noto Serif KR", serif; font-size: clamp(1.6rem, 3vw, 2.2rem); font-weight: 700; margin-bottom: 56px; text-align: center; text-wrap: balance; }
+
+/* ==================== Promo Popup ==================== */
+.promo-overlay {
+  position: fixed; inset: 0; z-index: 2000;
+  display: flex; align-items: center; justify-content: center;
+  padding: 24px;
+  background: rgba(6, 10, 20, 0.6);
+  opacity: 0; visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+.promo-overlay.active { opacity: 1; visibility: visible; }
+.promo-modal {
+  position: relative; width: 100%; max-width: 480px; max-height: 88vh; overflow-y: auto;
+  background: var(--surface);
+  border-radius: 20px;
+  box-shadow: 0 30px 70px rgba(0, 0, 0, 0.4);
+  transform: translateY(24px) scale(0.98); opacity: 0;
+  transition: transform 0.35s ease, opacity 0.35s ease;
+}
+.promo-overlay.active .promo-modal { transform: translateY(0) scale(1); opacity: 1; }
+.promo-close {
+  position: absolute; top: 14px; right: 16px; width: 32px; height: 32px;
+  border: none; border-radius: 50%;
+  background: rgba(255, 255, 255, 0.18); color: #fff;
+  font-size: 1.4rem; line-height: 1; cursor: pointer; z-index: 2;
+  transition: background var(--transition);
+}
+.promo-close:hover { background: rgba(255, 255, 255, 0.32); }
+.promo-visual {
+  position: relative; overflow: hidden; padding: 40px 28px 44px; text-align: center;
+  background: radial-gradient(120% 90% at 18% 0%, #16234a 0%, #0b1530 55%, #060d1f 100%);
+  color: #fff;
+}
+.promo-moon {
+  position: absolute; top: 26px; left: 32px; width: 68px; height: 68px; border-radius: 50%;
+  background: radial-gradient(circle at 35% 32%, #fff7d6 0%, #f3cf6d 55%, #dba93d 100%);
+  box-shadow: 0 0 40px 10px rgba(243, 207, 109, 0.35);
+}
+.promo-mountains { position: absolute; left: 0; right: 0; bottom: 0; width: 100%; height: 100px; }
+.promo-header { position: relative; z-index: 1; }
+.promo-heading { font-size: 0.98rem; font-weight: 500; line-height: 1.6; color: rgba(255, 255, 255, 0.88); margin-bottom: 18px; word-break: keep-all; }
+.promo-badge {
+  display: inline-flex; flex-direction: column; align-items: center; justify-content: center;
+  width: 54px; height: 54px; margin-bottom: 6px;
+  background: #9c2b2b; color: #fff; font-size: 0.72rem; font-weight: 700; line-height: 1.25;
+  border-radius: 8px;
+}
+.promo-title { font-family: "Noto Serif KR", serif; font-size: 2.6rem; font-weight: 700; color: #f3cf6d; letter-spacing: 0.02em; margin-bottom: 6px; }
+.promo-sub { font-size: 0.95rem; color: rgba(255, 255, 255, 0.75); }
+.promo-products { padding: 24px 20px 8px; }
+.promo-row { display: grid; gap: 10px; border-top: 1px solid var(--border); padding: 18px 0; }
+.promo-row-3 { grid-template-columns: repeat(3, 1fr); border-top: none; }
+.promo-row-4 { grid-template-columns: repeat(2, 1fr); }
+.promo-item { text-align: center; }
+.promo-item h4 { font-size: 0.85rem; font-weight: 700; margin-bottom: 8px; word-break: keep-all; }
+.promo-qty {
+  display: inline-block; padding: 3px 12px; border-radius: 999px;
+  background: var(--primary); color: #fff; font-size: 0.72rem; font-weight: 600; margin-bottom: 8px;
+}
+.promo-qty-limited { background: #9c2b2b; }
+.promo-item p { font-size: 0.82rem; }
+.promo-item del { color: var(--text-light); margin-right: 4px; }
+.promo-item strong { color: var(--primary); font-size: 0.95rem; }
+.promo-footer {
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  padding: 18px 20px 24px; border-top: 1px solid var(--border); margin-top: 8px;
+}
+.promo-brand { display: flex; align-items: center; gap: 8px; font-weight: 700; color: var(--primary); font-size: 0.9rem; }
+.promo-brand .logo-mark { width: 26px; height: 26px; font-size: 0.85rem; }
+.promo-hide-today { display: flex; align-items: center; gap: 6px; font-size: 0.8rem; color: var(--text-light); cursor: pointer; white-space: nowrap; }
+
+@media (max-width: 480px) {
+  .promo-visual { padding: 34px 20px 40px; }
+  .promo-title { font-size: 2.2rem; }
+  .promo-row-3 { grid-template-columns: 1fr; gap: 14px; }
+  .promo-row-3 .promo-item:not(:last-child) { padding-bottom: 14px; border-bottom: 1px dashed var(--border); }
+  .promo-footer { flex-direction: column; align-items: flex-start; }
+}
+
+/* ==================== Header / Navigation ==================== */
+.header {
+  position: fixed; top: 0; left: 0; right: 0; height: var(--header-h);
+  display: flex; align-items: center;
+  background: color-mix(in srgb, var(--bg) 96%, transparent);
+  border-bottom: 1px solid var(--border);
+  z-index: 1000;
+  transition: box-shadow var(--transition);
+}
+.header-inner { max-width: 1280px; width: 100%; margin: 0 auto; padding: 0 24px; display: flex; align-items: center; gap: 40px; }
+
+.logo { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 1.15rem; color: var(--primary); flex-shrink: 0; }
+.logo-mark { display: inline-flex; align-items: center; justify-content: center; width: 36px; height: 36px; border-radius: 10px; background: var(--primary); color: #fff; font-size: 1.05rem; font-family: "Noto Serif KR", serif; }
+
+.gnb { flex: 1; }
+.gnb-list { display: flex; justify-content: center; gap: 48px; height: var(--header-h); }
+.gnb-item { position: relative; display: flex; align-items: center; }
+.gnb-item > a { font-weight: 600; font-size: 1rem; padding: 8px 4px; position: relative; }
+.gnb-item > a::after { content: ""; position: absolute; left: 0; bottom: -4px; width: 0; height: 2px; background: var(--primary); transition: width var(--transition); }
+.gnb-item:hover > a::after { width: 100%; }
+.gnb-item:hover > a { color: var(--primary); }
+
+.sub-menu {
+  position: absolute; top: 100%; left: 50%;
+  transform: translateX(-50%) translateY(8px);
+  min-width: 190px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  box-shadow: 0 16px 40px rgba(15, 61, 153, 0.14);
+  padding: 10px;
+  opacity: 0; visibility: hidden;
+  transition: opacity var(--transition), transform var(--transition), visibility var(--transition);
+}
+.gnb-item:hover .sub-menu { opacity: 1; visibility: visible; transform: translateX(-50%) translateY(0); }
+.sub-menu li a { display: block; padding: 10px 14px; border-radius: 8px; font-size: 0.9rem; color: var(--text-light); transition: background var(--transition), color var(--transition); }
+.sub-menu li a:hover { background: var(--primary); color: #fff; }
+
+.header-cta { flex-shrink: 0; }
+.gnb-mobile-cta { display: none; }
+
+.menu-toggle { display: none; flex-direction: column; justify-content: center; gap: 5px; width: 40px; height: 40px; background: none; border: none; cursor: pointer; }
+.menu-toggle span { width: 100%; height: 2px; background: var(--text); transition: transform var(--transition), opacity var(--transition); }
+.menu-toggle.active span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.menu-toggle.active span:nth-child(2) { opacity: 0; }
+.menu-toggle.active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+/* ==================== Hero ==================== */
+.hero {
+  position: relative; min-height: 100vh;
+  display: flex; align-items: center; justify-content: center; text-align: center;
+  overflow: hidden;
+  background: linear-gradient(180deg, var(--bg-alt) 0%, var(--bg) 70%);
+  padding-top: var(--header-h);
+}
+.hero-bg { position: absolute; inset: 0; z-index: 0; }
+.blob { position: absolute; border-radius: 50%; filter: blur(60px); opacity: 0.35; animation: floatBlob 14s ease-in-out infinite; }
+.blob-1 { width: 420px; height: 420px; background: var(--primary); top: -120px; left: -100px; }
+.blob-2 { width: 360px; height: 360px; background: #5c8ae6; bottom: -140px; right: -80px; animation-delay: -4s; }
+.blob-3 { width: 260px; height: 260px; background: #a9c2f0; top: 40%; right: 10%; animation-delay: -8s; }
+@keyframes floatBlob {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(30px, -30px) scale(1.08); }
+  66% { transform: translate(-20px, 20px) scale(0.95); }
+}
+
+.hero-inner { position: relative; z-index: 1; max-width: 720px; padding: 0 24px; animation: heroRise 0.9s ease both; }
+@keyframes heroRise { from { opacity: 0; transform: translateY(28px); } to { opacity: 1; transform: translateY(0); } }
+
+.hero-eyebrow { color: var(--primary); font-weight: 700; letter-spacing: 0.05em; margin-bottom: 18px; font-size: 1rem; }
+.hero-title { font-family: "Noto Serif KR", serif; font-size: clamp(2.4rem, 6vw, 4rem); font-weight: 700; color: var(--primary); margin-bottom: 20px; letter-spacing: -0.01em; text-wrap: balance; }
+.hero-desc { font-size: clamp(1.05rem, 2vw, 1.3rem); font-weight: 600; margin-bottom: 10px; word-break: keep-all; }
+.hero-sub { color: var(--text-light); margin-bottom: 40px; word-break: keep-all; }
+.hero-actions { display: flex; justify-content: center; gap: 16px; flex-wrap: wrap; }
+
+.scroll-indicator { position: absolute; bottom: 32px; left: 50%; transform: translateX(-50%); width: 26px; height: 42px; border: 2px solid var(--primary); border-radius: 999px; z-index: 1; }
+.scroll-indicator span { display: block; width: 4px; height: 8px; background: var(--primary); border-radius: 999px; margin: 8px auto 0; animation: scrollDot 1.6s ease infinite; }
+@keyframes scrollDot { 0% { transform: translateY(0); opacity: 1; } 70% { transform: translateY(14px); opacity: 0; } 100% { opacity: 0; } }
+
+/* ==================== Philosophy ==================== */
+.philosophy { text-align: center; background: var(--bg); }
+.philosophy-title { font-family: "Noto Serif KR", serif; font-size: clamp(1.5rem, 3.2vw, 2.4rem); font-weight: 700; line-height: 1.5; margin-bottom: 24px; text-wrap: balance; }
+.philosophy-title strong { color: var(--primary); }
+.philosophy-desc { color: var(--text-light); font-size: 1.05rem; max-width: 640px; margin: 0 auto; }
+
+/* ==================== Values ==================== */
+.values { background: var(--bg-alt); text-align: center; }
+.value-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 20px; }
+.value-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 36px 20px; transition: transform var(--transition), box-shadow var(--transition), background var(--transition), color var(--transition); cursor: default; }
+.value-icon { width: 56px; height: 56px; margin: 0 auto 18px; border-radius: 50%; background: var(--primary-light); color: var(--primary); display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 1.2rem; font-family: "Noto Serif KR", serif; transition: background var(--transition), color var(--transition); }
+.value-card h3 { font-size: 1.05rem; margin-bottom: 10px; }
+.value-card p { color: var(--text-light); font-size: 0.88rem; }
+.value-card:hover { background: var(--primary); color: #fff; transform: translateY(-8px); box-shadow: 0 20px 40px rgba(15, 61, 153, 0.25); }
+.value-card:hover p { color: rgba(255, 255, 255, 0.85); }
+.value-card:hover .value-icon { background: rgba(255, 255, 255, 0.2); color: #fff; }
+
+/* ==================== Programs ==================== */
+.programs { background: var(--bg); }
+.program-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+.program-card { border: 1px solid var(--border); border-radius: var(--radius); padding: 40px 28px; transition: transform var(--transition), box-shadow var(--transition), background var(--transition), color var(--transition), border-color var(--transition); }
+.program-num { font-family: "Noto Serif KR", serif; font-size: 1.6rem; font-weight: 700; color: var(--primary); opacity: 0.35; margin-bottom: 16px; transition: color var(--transition), opacity var(--transition); }
+.program-card h3 { font-size: 1.15rem; margin-bottom: 10px; }
+.program-card p { color: var(--text-light); font-size: 0.92rem; }
+.program-card:hover { background: var(--primary); border-color: var(--primary); color: #fff; transform: translateY(-8px); box-shadow: 0 20px 40px rgba(15, 61, 153, 0.25); }
+.program-card:hover p { color: rgba(255, 255, 255, 0.85); }
+.program-card:hover .program-num { color: #fff; opacity: 0.4; }
+
+/* ==================== Doctors ==================== */
+.doctors { background: var(--bg-alt); }
+.doctor-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; text-align: center; }
+.doctor-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 30px 20px 34px; transition: transform var(--transition), box-shadow var(--transition); }
+.doctor-card:hover { transform: translateY(-8px); box-shadow: 0 20px 40px rgba(15, 61, 153, 0.14); }
+.doctor-photo { width: 110px; height: 110px; margin: 0 auto 20px; border-radius: 50%; background: var(--primary-light); color: var(--primary); display: flex; align-items: center; justify-content: center; font-size: 1.8rem; font-weight: 700; font-family: "Noto Serif KR", serif; }
+.doctor-card h3 { font-size: 1.05rem; margin-bottom: 6px; }
+.doctor-card p { color: var(--text-light); font-size: 0.85rem; }
+
+/* ==================== Health Column ==================== */
+.column { background: var(--bg); }
+.column-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+.column-card { border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; transition: transform var(--transition), box-shadow var(--transition); display: block; }
+.column-card:hover { transform: translateY(-8px); box-shadow: 0 20px 40px rgba(15, 61, 153, 0.14); }
+.column-thumb { height: 180px; background: var(--primary-light); color: var(--primary); display: flex; align-items: center; justify-content: center; font-weight: 700; }
+.column-body { padding: 22px; }
+.column-tag { display: inline-block; color: var(--primary); font-size: 0.78rem; font-weight: 700; margin-bottom: 10px; }
+.column-body h3 { font-size: 1.02rem; line-height: 1.5; }
+
+/* ==================== System / Reservation / Map ==================== */
+.system { background: var(--bg-alt); }
+.system-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+.time-table { width: 100%; border-collapse: collapse; margin: 24px 0; }
+.time-table th, .time-table td { text-align: left; padding: 14px 0; border-bottom: 1px solid var(--border); font-size: 0.95rem; }
+.time-table th { color: var(--text-light); font-weight: 500; width: 40%; }
+.time-table td { font-weight: 700; font-variant-numeric: tabular-nums; }
+.system-note { color: var(--text-light); margin-bottom: 28px; font-size: 0.92rem; }
+.map-placeholder { height: 340px; border-radius: var(--radius); background: var(--primary-light); color: var(--primary); display: flex; align-items: center; justify-content: center; font-weight: 700; border: 1px solid var(--border); }
+
+/* ==================== Footer ==================== */
+.footer { background: var(--footer-bg); color: var(--footer-text); padding: 70px 0 30px; font-size: 0.9rem; }
+.footer-inner { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 40px; padding-bottom: 40px; border-bottom: 1px solid var(--footer-border); }
+.footer-logo { display: flex; align-items: center; gap: 10px; color: #fff; font-weight: 800; font-size: 1.1rem; margin-bottom: 18px; }
+.footer-logo .logo-mark { background: #fff; color: var(--footer-bg); }
+.footer-col p { margin-bottom: 8px; }
+.footer-links h4 { color: #fff; font-size: 0.95rem; margin-bottom: 18px; }
+.footer-links li { margin-bottom: 10px; }
+.footer-links a { transition: color var(--transition); }
+.footer-links a:hover { color: #fff; }
+.footer-copy { text-align: center; padding-top: 24px; font-size: 0.8rem; color: rgba(255, 255, 255, 0.45); }
+
+/* ==================== Responsive ==================== */
+@media (max-width: 1024px) {
+  .value-grid { grid-template-columns: repeat(3, 1fr); }
+  .doctor-grid { grid-template-columns: repeat(2, 1fr); }
+  .program-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 900px) {
+  .pc-only { display: none; }
+  .header-inner { position: relative; justify-content: flex-end; }
+  .logo { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); }
+  .gnb {
+    position: fixed; top: var(--header-h); left: 0; right: 0; bottom: 0;
+    background: var(--bg); padding: 20px 24px; overflow-y: auto;
+    transform: translateX(100%); transition: transform var(--transition);
+  }
+  .gnb.active { transform: translateX(0); }
+  .gnb-list { flex-direction: column; height: auto; gap: 0; }
+  .gnb-item { flex-direction: column; align-items: stretch; border-bottom: 1px solid var(--border); }
+  .gnb-item > a { padding: 16px 4px; font-size: 1.05rem; }
+  .sub-menu { position: static; opacity: 1; visibility: visible; transform: none; box-shadow: none; border: none; padding: 0 0 12px 12px; }
+  .sub-menu li a { padding: 8px 10px; font-size: 0.88rem; }
+  .gnb-mobile-cta { display: flex; width: 100%; margin-top: 24px; }
+  .header-cta { display: none; }
+  .menu-toggle { display: flex; }
+  .system-inner { grid-template-columns: 1fr; }
+  .footer-inner { grid-template-columns: 1fr; gap: 28px; }
+}
+
+@media (max-width: 640px) {
+  section { padding: 70px 0; }
+  .value-grid { grid-template-columns: repeat(2, 1fr); }
+  .program-grid { grid-template-columns: 1fr; }
+  .doctor-grid { grid-template-columns: repeat(2, 1fr); }
+  .column-grid { grid-template-columns: 1fr; }
+  .hero-actions { flex-direction: column; align-items: stretch; }
+}
+</style>
+</head>
+<body>
+
+<div class="promo-overlay" id="promoOverlay">
+  <div class="promo-modal">
+    <button class="promo-close" id="promoClose" aria-label="팝업 닫기">&times;</button>
+
+    <div class="promo-visual">
+      <div class="promo-moon"></div>
+      <svg class="promo-mountains" viewBox="0 0 520 160" preserveAspectRatio="none" aria-hidden="true">
+        <path d="M0,160 L0,95 L60,55 L120,90 L180,40 L260,100 L320,60 L400,105 L460,70 L520,100 L520,160 Z" fill="rgba(255,255,255,0.06)"/>
+        <path d="M0,160 L0,120 L80,80 L150,115 L230,75 L300,120 L380,85 L460,125 L520,110 L520,160 Z" fill="rgba(255,255,255,0.1)"/>
+      </svg>
+      <div class="promo-header">
+        <p class="promo-heading">온담한의원 추석 이벤트,<br>보름달처럼 가득 찬 마음을 전하세요</p>
+        <div class="promo-badge">최대<br>20%</div>
+        <h2 class="promo-title">한가위</h2>
+        <p class="promo-sub">마음을 담은 건강선물</p>
+      </div>
+    </div>
+
+    <div class="promo-products">
+      <div class="promo-row promo-row-3">
+        <div class="promo-item"><h4>프리미엄 공진단</h4><span class="promo-qty">10환</span><p><del>90만원</del> <strong>72만원</strong></p></div>
+        <div class="promo-item"><h4>황제 공진단</h4><span class="promo-qty">10환</span><p><del>60만원</del> <strong>48만원</strong></p></div>
+        <div class="promo-item"><h4>온담 공진단</h4><span class="promo-qty">10환</span><p><del>39만원</del> <strong>31만2천원</strong></p></div>
+      </div>
+      <div class="promo-row promo-row-4">
+        <div class="promo-item"><h4>경옥고 스틱</h4><span class="promo-qty">30포</span><p><del>18만원</del> <strong>14만4천원</strong></p></div>
+        <div class="promo-item"><h4>경옥고 단지</h4><span class="promo-qty">1.2kg</span><p><del>30만원</del> <strong>24만원</strong></p></div>
+        <div class="promo-item"><h4>경옥고 환</h4><span class="promo-qty">60환</span><p><del>24만원</del> <strong>19만2천원</strong></p></div>
+        <div class="promo-item"><h4>녹용 경옥고</h4><span class="promo-qty promo-qty-limited">한정수량</span><p><del>40만원</del> <strong>36만원</strong></p></div>
+      </div>
+      <div class="promo-row promo-row-4">
+        <div class="promo-item"><h4>어린이 홍삼</h4><span class="promo-qty">30팩</span><p><del>10만원</del> <strong>8만원</strong></p></div>
+        <div class="promo-item"><h4>온담 홍삼</h4><span class="promo-qty">30팩</span><p><del>12만원</del> <strong>9만6천원</strong></p></div>
+        <div class="promo-item"><h4>녹용 홍삼</h4><span class="promo-qty">30팩</span><p><del>22만원</del> <strong>17만6천원</strong></p></div>
+        <div class="promo-item"><h4>우황청심원</h4><span class="promo-qty">10환</span><p><del>45만원</del> <strong>36만원</strong></p></div>
+      </div>
+    </div>
+
+    <div class="promo-footer">
+      <div class="promo-brand"><span class="logo-mark">溫</span><span>온담한의원</span></div>
+      <label class="promo-hide-today">
+        <input type="checkbox" id="promoHideToday">
+        오늘 하루 보지 않기
+      </label>
+    </div>
+  </div>
+</div>
+
+<header class="header" id="header">
+  <div class="header-inner">
+    <a href="#" class="logo">
+      <span class="logo-mark">溫</span>
+      <span class="logo-text">온담한의원</span>
+    </a>
+
+    <nav class="gnb" id="gnb">
+      <ul class="gnb-list">
+        <li class="gnb-item">
+          <a href="#about">병원소개</a>
+          <ul class="sub-menu">
+            <li><a href="#about">인사말</a></li>
+            <li><a href="#about">진료철학</a></li>
+            <li><a href="#doctors">의료진 소개</a></li>
+            <li><a href="#location">오시는 길</a></li>
+          </ul>
+        </li>
+        <li class="gnb-item">
+          <a href="#programs">진료과목</a>
+          <ul class="sub-menu">
+            <li><a href="#programs">체질감별</a></li>
+            <li><a href="#programs">만성통증</a></li>
+            <li><a href="#programs">한방다이어트</a></li>
+            <li><a href="#programs">맞춤보약·공진단</a></li>
+            <li><a href="#programs">교통사고후유증</a></li>
+            <li><a href="#programs">여성·소아 한방</a></li>
+          </ul>
+        </li>
+        <li class="gnb-item">
+          <a href="#system">진료시스템</a>
+          <ul class="sub-menu">
+            <li><a href="#system">예약안내</a></li>
+            <li><a href="#system">진료시간</a></li>
+            <li><a href="#system">첫 방문 안내</a></li>
+          </ul>
+        </li>
+        <li class="gnb-item">
+          <a href="#column">커뮤니티</a>
+          <ul class="sub-menu">
+            <li><a href="#column">건강칼럼</a></li>
+            <li><a href="#column">공지사항</a></li>
+            <li><a href="#column">자주 묻는 질문</a></li>
+          </ul>
+        </li>
+      </ul>
+      <a href="#system" class="btn btn-primary gnb-mobile-cta">진료상담예약</a>
+    </nav>
+
+    <a href="#system" class="btn btn-primary header-cta">진료상담예약</a>
+
+    <button class="menu-toggle" id="menuToggle" aria-label="메뉴 열기">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="hero-bg">
+    <span class="blob blob-1"></span>
+    <span class="blob blob-2"></span>
+    <span class="blob blob-3"></span>
+  </div>
+  <div class="hero-inner">
+    <p class="hero-eyebrow">체질의 차이를 먼저 생각합니다</p>
+    <h1 class="hero-title">온담한의원</h1>
+    <p class="hero-desc">체질감별 · 만성통증 · 한방다이어트 · 맞춤보약·공진단</p>
+    <p class="hero-sub">한의학박사, 한방전문의 등 남녀 한의사 4인 예약제 진료</p>
+    <div class="hero-actions">
+      <a href="#system" class="btn btn-primary btn-lg">진료상담예약</a>
+      <a href="#about" class="btn btn-outline btn-lg">병원소개 보기</a>
+    </div>
+  </div>
+  <div class="scroll-indicator"><span></span></div>
+</section>
+
+<section class="philosophy" id="about">
+  <div class="container">
+    <p class="section-eyebrow">PHILOSOPHY</p>
+    <h2 class="philosophy-title">
+      같은 병이라도, 같은 사람은 없습니다.<br>
+      <strong>체질의 차이를 먼저 생각합니다.</strong>
+    </h2>
+    <p class="philosophy-desc">
+      온담한의원은 획일화된 처방이 아닌, 한 사람 한 사람의 체질과 생활 습관을 살펴
+      가장 근본적인 원인을 찾는 것을 진료의 출발점으로 삼습니다.
+    </p>
+  </div>
+</section>
+
+<section class="values">
+  <div class="container">
+    <p class="section-eyebrow">WHY ONDAM</p>
+    <h2 class="section-title">온담이 중요하게 생각하는 것</h2>
+    <div class="value-grid">
+      <div class="value-card">
+        <div class="value-icon">溫</div>
+        <h3>온고지신</h3>
+        <p>수천 년 축적된 한의학의 지혜를 현대적으로 재해석합니다.</p>
+      </div>
+      <div class="value-card">
+        <div class="value-icon">科</div>
+        <h3>과학적 근거</h3>
+        <p>임상 데이터와 근거 중심의 진단으로 신뢰할 수 있는 진료를 제공합니다.</p>
+      </div>
+      <div class="value-card">
+        <div class="value-icon">機</div>
+        <h3>현대 의료기기</h3>
+        <p>정밀한 체질·통증 검사 장비로 객관적인 진단을 돕습니다.</p>
+      </div>
+      <div class="value-card">
+        <div class="value-icon">心</div>
+        <h3>맞춤 상담</h3>
+        <p>충분한 상담 시간을 통해 개인별 맞춤 치료 계획을 세웁니다.</p>
+      </div>
+      <div class="value-card">
+        <div class="value-icon">續</div>
+        <h3>꾸준한 관리</h3>
+        <p>치료 이후에도 이어지는 체계적인 사후 관리 시스템을 갖췄습니다.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="programs" id="programs">
+  <div class="container">
+    <p class="section-eyebrow">PROGRAMS</p>
+    <h2 class="section-title">주요 진료 과목</h2>
+    <div class="program-grid">
+      <div class="program-card"><div class="program-num">01</div><h3>체질감별</h3><p>정밀 진단을 통해 개인의 체질을 파악하고 맞춤 치료 방향을 제시합니다.</p></div>
+      <div class="program-card"><div class="program-num">02</div><h3>만성통증</h3><p>목·어깨·허리 등 오래된 통증의 근본 원인을 찾아 치료합니다.</p></div>
+      <div class="program-card"><div class="program-num">03</div><h3>한방다이어트</h3><p>체질에 맞는 한방 처방으로 건강하고 지속 가능한 체중 관리를 돕습니다.</p></div>
+      <div class="program-card"><div class="program-num">04</div><h3>맞춤보약·공진단</h3><p>개인별 체질과 컨디션에 맞춘 보약과 공진단을 처방합니다.</p></div>
+      <div class="program-card"><div class="program-num">05</div><h3>교통사고후유증</h3><p>사고 이후 남은 통증과 후유증을 체계적으로 치료 관리합니다.</p></div>
+      <div class="program-card"><div class="program-num">06</div><h3>여성·소아 한방</h3><p>여성 질환과 소아 성장·면역을 위한 전문 한방 진료를 제공합니다.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="doctors" id="doctors">
+  <div class="container">
+    <p class="section-eyebrow">DOCTORS</p>
+    <h2 class="section-title">의료진 소개</h2>
+    <div class="doctor-grid">
+      <div class="doctor-card"><div class="doctor-photo">金</div><h3>김온담 원장</h3><p>한의학박사 · 한방내과 전문의</p></div>
+      <div class="doctor-card"><div class="doctor-photo">李</div><h3>이수현 원장</h3><p>한방재활의학과 전문의</p></div>
+      <div class="doctor-card"><div class="doctor-photo">朴</div><h3>박지훈 원장</h3><p>사상체질과 전문의</p></div>
+      <div class="doctor-card"><div class="doctor-photo">鄭</div><h3>정하은 원장</h3><p>한방부인과 전문의</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="column" id="column">
+  <div class="container">
+    <p class="section-eyebrow">HEALTH COLUMN</p>
+    <h2 class="section-title">건강칼럼</h2>
+    <div class="column-grid">
+      <a href="#" class="column-card">
+        <div class="column-thumb">건강 정보 01</div>
+        <div class="column-body"><span class="column-tag">체질</span><h3>나에게 맞는 체질, 어떻게 알 수 있을까요?</h3></div>
+      </a>
+      <a href="#" class="column-card">
+        <div class="column-thumb">건강 정보 02</div>
+        <div class="column-body"><span class="column-tag">통증</span><h3>만성 어깨 통증, 방치하면 안 되는 이유</h3></div>
+      </a>
+      <a href="#" class="column-card">
+        <div class="column-thumb">건강 정보 03</div>
+        <div class="column-body"><span class="column-tag">다이어트</span><h3>요요 없는 한방다이어트, 원리부터 이해하기</h3></div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section class="system" id="system">
+  <div class="container system-inner">
+    <div class="system-info">
+      <p class="section-eyebrow">RESERVATION</p>
+      <h2 class="section-title" style="text-align:left;">진료시간 &amp; 예약안내</h2>
+      <table class="time-table">
+        <tr><th>평일</th><td>09:30 – 19:00</td></tr>
+        <tr><th>토요일</th><td>09:30 – 14:00</td></tr>
+        <tr><th>일요일 · 공휴일</th><td>휴진</td></tr>
+        <tr><th>점심시간</th><td>13:00 – 14:00</td></tr>
+      </table>
+      <p class="system-note">모든 진료는 예약제로 운영되며, 전화 또는 온라인으로 예약하실 수 있습니다.</p>
+      <a href="tel:031-8027-8275" class="btn btn-primary btn-lg">전화로 예약하기</a>
+    </div>
+    <div class="system-map" id="location">
+      <div class="map-placeholder">지도 영역</div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container footer-inner">
+    <div class="footer-col">
+      <div class="footer-logo"><span class="logo-mark">溫</span><span class="logo-text">온담한의원</span></div>
+      <p>서울특별시 강동구 미사강변대로 123 온담빌딩 3층</p>
+      <p>대표전화 031-8027-8275 &nbsp;|&nbsp; 사업자등록번호 123-45-67890</p>
+      <p>대표원장 김온담</p>
+    </div>
+    <div class="footer-col footer-links">
+      <h4>바로가기</h4>
+      <ul>
+        <li><a href="#about">병원소개</a></li>
+        <li><a href="#programs">진료과목</a></li>
+        <li><a href="#system">진료시스템</a></li>
+        <li><a href="#column">커뮤니티</a></li>
+      </ul>
+    </div>
+    <div class="footer-col footer-links">
+      <h4>안내</h4>
+      <ul>
+        <li><a href="#">이용약관</a></li>
+        <li><a href="#">개인정보처리방침</a></li>
+      </ul>
+    </div>
+  </div>
+  <p class="footer-copy">&copy; 2026 Ondam Korean Medicine Clinic. All rights reserved.</p>
+</footer>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  var promoOverlay = document.getElementById("promoOverlay");
+  var promoClose = document.getElementById("promoClose");
+  var promoHideToday = document.getElementById("promoHideToday");
+  var PROMO_KEY = "ondamPromoHiddenUntil";
+
+  function closePromo() {
+    promoOverlay.classList.remove("active");
+    if (promoHideToday.checked) {
+      localStorage.setItem(PROMO_KEY, new Date().toDateString());
+    }
+  }
+
+  if (localStorage.getItem(PROMO_KEY) !== new Date().toDateString()) {
+    setTimeout(function () {
+      promoOverlay.classList.add("active");
+    }, 400);
+  }
+
+  promoClose.addEventListener("click", closePromo);
+  promoOverlay.addEventListener("click", function (e) {
+    if (e.target === promoOverlay) closePromo();
+  });
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "Escape" && promoOverlay.classList.contains("active")) closePromo();
+  });
+
+  var menuToggle = document.getElementById("menuToggle");
+  var gnb = document.getElementById("gnb");
+
+  menuToggle.addEventListener("click", function () {
+    menuToggle.classList.toggle("active");
+    gnb.classList.toggle("active");
+  });
+
+  var gnbLinks = gnb.querySelectorAll("a");
+  gnbLinks.forEach(function (link) {
+    link.addEventListener("click", function () {
+      menuToggle.classList.remove("active");
+      gnb.classList.remove("active");
+    });
+  });
+
+  var header = document.getElementById("header");
+  window.addEventListener("scroll", function () {
+    header.style.boxShadow = window.scrollY > 10 ? "0 4px 20px rgba(15, 61, 153, 0.1)" : "none";
+  });
+});
+</script>
+</body>
+</html>
